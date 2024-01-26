@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\TeamSync.Identity.Domain\TeamSync.Identity.Domain.csproj" />
+    <ProjectReference Include="..\TeamSync.Domain\TeamSync.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

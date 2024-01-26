@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\TeamSync.Identity.Application\TeamSync.Identity.Application.csproj" />
+    <ProjectReference Include="..\TeamSync.Application\TeamSync.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
