@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6B514B10-2F5B-46D9-B85F-E5C0417123A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{96FF56F8-82DD-4AC2-A39D-F594CCF99E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSync.Identity.Api", "src\Identity\TeamSync.Identity.Api\TeamSync.Identity.Api.csproj", "{4D4881FB-334B-4844-83F9-000C4D6981D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSync.Identity.Application", "src\Identity\TeamSync.Identity.Application\TeamSync.Identity.Application.csproj", "{4738EDE5-0842-4E38-902A-ADD518AD3673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSync.Identity.Contracts", "src\Identity\TeamSync.Identity.Contracts\TeamSync.Identity.Contracts.csproj", "{7C2B20FB-810B-4990-93BC-0D95A06A284B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSync.Identity.Domain", "src\Identity\TeamSync.Identity.Domain\TeamSync.Identity.Domain.csproj", "{0C2404DD-D8E0-4F87-8144-04B29B2F01EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamSync.Identity.Infrastructure", "src\Identity\TeamSync.Identity.Infrastructure\TeamSync.Identity.Infrastructure.csproj", "{CAE938EC-0229-4969-B994-89472BF21D2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D4881FB-334B-4844-83F9-000C4D6981D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4881FB-334B-4844-83F9-000C4D6981D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D4881FB-334B-4844-83F9-000C4D6981D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D4881FB-334B-4844-83F9-000C4D6981D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4738EDE5-0842-4E38-902A-ADD518AD3673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4738EDE5-0842-4E38-902A-ADD518AD3673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4738EDE5-0842-4E38-902A-ADD518AD3673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4738EDE5-0842-4E38-902A-ADD518AD3673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2B20FB-810B-4990-93BC-0D95A06A284B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2B20FB-810B-4990-93BC-0D95A06A284B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2B20FB-810B-4990-93BC-0D95A06A284B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2B20FB-810B-4990-93BC-0D95A06A284B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C2404DD-D8E0-4F87-8144-04B29B2F01EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C2404DD-D8E0-4F87-8144-04B29B2F01EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C2404DD-D8E0-4F87-8144-04B29B2F01EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C2404DD-D8E0-4F87-8144-04B29B2F01EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAE938EC-0229-4969-B994-89472BF21D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAE938EC-0229-4969-B994-89472BF21D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAE938EC-0229-4969-B994-89472BF21D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAE938EC-0229-4969-B994-89472BF21D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96FF56F8-82DD-4AC2-A39D-F594CCF99E94} = {6B514B10-2F5B-46D9-B85F-E5C0417123A5}
+		{4D4881FB-334B-4844-83F9-000C4D6981D7} = {96FF56F8-82DD-4AC2-A39D-F594CCF99E94}
+		{4738EDE5-0842-4E38-902A-ADD518AD3673} = {96FF56F8-82DD-4AC2-A39D-F594CCF99E94}
+		{7C2B20FB-810B-4990-93BC-0D95A06A284B} = {96FF56F8-82DD-4AC2-A39D-F594CCF99E94}
+		{0C2404DD-D8E0-4F87-8144-04B29B2F01EE} = {96FF56F8-82DD-4AC2-A39D-F594CCF99E94}
+		{CAE938EC-0229-4969-B994-89472BF21D2F} = {96FF56F8-82DD-4AC2-A39D-F594CCF99E94}
+	EndGlobalSection
+EndGlobal
