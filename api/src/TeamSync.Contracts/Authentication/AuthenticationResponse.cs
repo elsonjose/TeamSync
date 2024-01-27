@@ -16,23 +16,23 @@ public class AuthencationResponse
     /// Specifies the first name.
     /// </summary>
     /// <example>FirtName</example>
-    public string FirstName { get; init; }
+    public required string FirstName { get; init; }
 
     /// <summary>
     /// Specifies the last name.
     /// </summary>
     /// <example>LastName</example>
-    public string LastName { get; init; }
+    public required string LastName { get; init; }
 
     /// <summary>
     /// Specifies the user email.
     /// </summary>
     /// <example>user@domain.com</example>
-    public string Email { get; init; }
+    public required string Email { get; init; }
 
     /// <summary>
     /// Specifies the token issued.
     /// </summary>
     /// <example>abcdefgh</example>
-    public string Token { get; init; }
+    public required string Token { get; init; }
 }

@@ -9,11 +9,11 @@ public class RegisterRequest : EmailAndPassword
     /// Specifies the first name.
     /// </summary>
     /// <example>user@domain.com</example>
-    public string FirstName { get; init; }
+    public required string FirstName { get; init; }
 
     /// <summary>
     /// Specifies the email.
     /// </summary>
     /// <example>user@domain.com</example>
-    public string LastName { get; init; }
+    public required string LastName { get; init; }
 }

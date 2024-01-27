@@ -9,11 +9,11 @@ public class EmailAndPassword
     /// Specifies the email.
     /// </summary>
     /// <example>user@domain.com</example>
-    public string Email { get; init; }
+    public required string Email { get; init; }
 
     /// <summary>
     /// Specifies the password
     /// </summary>
     /// <example>Password</example>
-    public string Password { get; init; }
+    public required string Password { get; init; }
 }
