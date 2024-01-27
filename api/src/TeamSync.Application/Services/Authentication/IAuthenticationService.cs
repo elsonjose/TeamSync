@@ -9,18 +9,18 @@ public interface IAuthencticationService
     /// <summary>
     /// Defines the login method.
     /// </summary>
-    /// <param name="Email"></param>
-    /// <param name="Password"></param>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
     /// <returns>Result of login process of type <see cref="AuthenticationResult"/></returns>
-    public AuthenticationResult Login(string Email, string Password);
+    public AuthenticationResult Login(string email, string password);
 
     /// <summary>
     /// Defines the register method.
     /// </summary>
-    /// <param name="FirstName"></param>
-    /// <param name="LastName"></param>
-    /// <param name="Email"></param>
-    /// <param name="Password"></param>
+    /// <param name="firstName"></param>
+    /// <param name="lastName"></param>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
     /// <returns>Result of register process of type <see cref="AuthenticationResult"/></returns>
-    public AuthenticationResult Register(string FirstName, string LastName, string Email, string Password);
+    public AuthenticationResult Register(string firstName, string lastName, string email, string password);
 }

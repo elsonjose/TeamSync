@@ -1,4 +1,5 @@
 using TeamSync.Application;
+using TeamSync.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -6,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSwaggerGen();
 
     // Dependency injection
-    builder.Services.AddApplicationServices();
+    builder.Services
+    .AddApplicationServices()
+    .AddInfrastructureServices();
 }
 
 var app = builder.Build();

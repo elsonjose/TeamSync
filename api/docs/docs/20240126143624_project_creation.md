@@ -13,3 +13,9 @@ The file has several profile. One of them can be used to run the project. The fi
 <hr>
 
 Each layer should be responsible for injecting the required services. Hence created a static class in Application layer so that the Authentication service is injected from the application layer and not the api layer. 
+
+<hr>
+JWT key generation - https://randomgenerate.io/encryption-key-generator
+
+<hr>
+The infrastructure is referenced to api for dependency injection
