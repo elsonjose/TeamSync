@@ -2,6 +2,8 @@
 
 POST {{Api_HostAddress}}/auth/login
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6ImZpcnROYW1lIiwiZmFtaWx5X25hbWUiOiJsYXN0TmFtZSIsImp0aSI6ImRmOTk3ZjQ2LTgwZTMtNDhmZC04NjdhLWQ0ZWVhMGU0ZjU5YyIsIm9yZ0lkIjoiMSIsInVzZXJJZCI6IjEiLCJpc09yZyI6IkZhbHNlIiwiZXhwIjoxNzA2NDY1NzE1LCJpc3MiOiJUZWFtU3luYyIsImF1ZCI6IlRlYW1TeW5jIn0.pgK0GtdTfbyeRtI0An6hXBukpMQMuXqqomZ9DB-GTCE
+Timezone-Offset: 330
 
 {
     "email": "string",

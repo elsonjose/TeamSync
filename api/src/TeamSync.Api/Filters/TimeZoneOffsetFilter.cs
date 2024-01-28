@@ -11,7 +11,7 @@ public class TimeZoneOffsetFilter : IOperationFilter
         operation.Parameters ??= [];
         operation.Parameters.Add(new OpenApiParameter()
         {
-            Name = "Timezone-Offset",
+            Name = ApiConstants.TimeZoneOffsetHeader,
             In = ParameterLocation.Header,
             Description = "Timezone offset for the request in minutes.",
             Required = false,

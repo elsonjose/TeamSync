@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using TeamSync.Application.Common.Interfaces;
+using TeamSync.Application.Interfaces;
 
 namespace TeamSync.Infrastructure.Authencation;
 
@@ -30,8 +30,11 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             new Claim(JwtRegisteredClaimNames.GivenName, firstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, lastname),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(TeamSyncClaimNames.OrgId,organisationId.ToString())
+            new Claim(TeamSyncClaimNames.OrganisationId,organisationId.ToString()),
+            new Claim(TeamSyncClaimNames.UserId,userId.ToString()),
+            new Claim(TeamSyncClaimNames.IsOrganisation,false.ToString())
         };
+
 
         var securityToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,

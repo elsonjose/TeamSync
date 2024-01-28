@@ -1,4 +1,4 @@
-using TeamSync.Application.Common.Interfaces;
+using TeamSync.Application.Interfaces;
 
 namespace TeamSync.Infrastructure.Services;
 

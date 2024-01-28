@@ -1,4 +1,4 @@
-namespace TeamSync.Application.Common.Interfaces;
+namespace TeamSync.Application.Interfaces;
 
 /// <summary>
 /// Defines the interface of JWT token generation.

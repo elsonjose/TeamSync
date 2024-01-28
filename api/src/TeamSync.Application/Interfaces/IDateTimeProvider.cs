@@ -1,4 +1,4 @@
-namespace TeamSync.Application.Common.Interfaces;
+namespace TeamSync.Application.Interfaces;
 
 public interface IDateTimeProvider
 {
