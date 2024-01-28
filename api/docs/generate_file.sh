@@ -7,7 +7,7 @@ if [ $# -eq 2 ]; then
         mkdir docs
     fi
     echo >> $file_name && echo "File '$file_name' generated"
-    echo "## $2" >> $file_name
+    echo -n "## $2" > $file_name
     if [ ! -f $readme_file ]; then
         echo >> $readme_file
     fi
