@@ -4,9 +4,7 @@ using TeamSync.Contracts.Authencation;
 
 namespace TeamSync.Api.v1.Controllers;
 
-[ApiController]
-[Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
     private readonly IAuthencticationService _authenticationService;
 
@@ -15,7 +13,7 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authService;
     }
 
-    [HttpPost("login")]
+    [HttpPost("auth/login")]
     public IActionResult Login(LoginRequest request)
     {
         var loginResult = _authenticationService.Login(request.Email, request.Password);
@@ -30,7 +28,7 @@ public class AuthenticationController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost("register")]
+    [HttpPost("auth/register")]
     public IActionResult Register(RegisterRequest request)
     {
         var loginResult = _authenticationService.Register(request.FirstName, request.LastName, request.Email, request.Password);

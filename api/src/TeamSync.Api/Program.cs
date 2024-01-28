@@ -1,10 +1,14 @@
+using TeamSync.Api.Filters;
 using TeamSync.Application;
 using TeamSync.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddControllers();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.OperationFilter<TimeZoneOffsetFilter>();
+    });
 
     // Dependency injection
     builder.Services

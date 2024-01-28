@@ -1,4 +1,4 @@
-@Api_HostAddress = http://localhost:5019
+@Api_HostAddress = http://localhost:5019/api/v1
 
 POST {{Api_HostAddress}}/auth/login
 Content-Type: application/json
