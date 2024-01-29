@@ -6,7 +6,7 @@ public class RequestContext : IRequestContext
     /// <summary>
     /// Specifies the time zone offset in minuts.
     /// </summary>
-    private int TimeZoneOffset { get; set; }
+    public int TimeZoneOffset { get; set; }
 
     /// <summary>
     /// Specifies the orginisation identifier.
