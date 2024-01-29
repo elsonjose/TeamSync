@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TeamSync.Api.v1.Controllers;
+namespace TeamSync.Api.Controllers.v1;
 
 [ApiController]
 [Route("api/v1")]
