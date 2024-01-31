@@ -6,9 +6,14 @@ namespace TeamSync.Domain.Entities;
 public class Organisation
 {
     /// <summary>
-    /// Specifies the identifier for the user.
+    /// Specifies the identifier for the organisation.
     /// </summary>
     public long Id { get; set; }
+
+    /// <summary>
+    /// Specifies the guid identifier for the organisation.
+    /// </summary>
+    public Guid OrganisationId { get; set; }
 
     /// <summary>
     /// Specifies the organisation name.
@@ -34,4 +39,9 @@ public class Organisation
     /// Specifies the organisation password.
     /// </summary>
     public string Password { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies the metadata
+    /// </summary>
+    public Dictionary<string,object> Metadata {get;set;} = null!;
 }

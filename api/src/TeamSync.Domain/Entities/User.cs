@@ -11,6 +11,11 @@ public class User
     public long Id { get; set; }
 
     /// <summary>
+    /// Specifies the guid identifier for the user.
+    /// </summary>
+    public Guid UserId { get; set; }
+
+    /// <summary>
     /// Specifies the first name.
     /// </summary>
     public string FirstName { get; set; } = null!;
@@ -54,6 +59,11 @@ public class User
     /// Specifies the orgnaisation id of the user.
     /// </summary>
     public long OrganisationId;
+
+    /// <summary>
+    /// Specifies the metadata
+    /// </summary>
+    public Dictionary<string,object> Metadata {get;set;} = null!;
 
     /// <summary>
     /// Specifies the associated organisation for the user.
