@@ -69,4 +69,9 @@ public class User
     /// Specifies the associated organisation for the user.
     /// </summary>
     public Organisation Organisation { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies the associated time-logs for the user.
+    /// </summary>
+    public List<TimeLog> TimeLogs { get; set; } = null!;
 }

@@ -43,5 +43,10 @@ public class Organisation
     /// <summary>
     /// Specifies the metadata
     /// </summary>
-    public Dictionary<string,object> Metadata {get;set;} = null!;
+    public Dictionary<string, object> Metadata { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies the list of users associated with the organisation.
+    /// </summary>
+    public List<User> Users { get; set; } = null!;
 }

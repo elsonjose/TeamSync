@@ -28,7 +28,7 @@ public class TimeLog
     /// <summary>
     /// Specifies the time at which the log was created.
     /// </summary>
-    public long UserId { get; set; }
+    public Guid UserId { get; set; }
 
     /// <summary>
     /// Specifies the associated user.

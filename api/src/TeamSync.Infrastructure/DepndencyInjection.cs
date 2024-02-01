@@ -1,11 +1,14 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using TeamSync.Application.Common;
 using TeamSync.Application.Interfaces;
 using TeamSync.Infrastructure.Authencation;
+using TeamSync.Infrastructure.Implementation.Database;
 using TeamSync.Infrastructure.Services;
 
 namespace TeamSync.Infrastructure;
@@ -16,11 +19,15 @@ public static class DependencyInjection
     {
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
+        services.AddDbContext<ITeamSyncDbContext, TeamSyncDbContext>(options =>
+        {
+            options.UseNpgsql(configuration.GetConnectionString(TeamSyncConstants.DefaultConnection));
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        });
         return services;
     }
 
-    public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
+    private static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
     {
         var jwtSettings = new JwtSettings();
         configuration.Bind(nameof(JwtSettings), jwtSettings);
