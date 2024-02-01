@@ -19,8 +19,8 @@ public class OrganisationEntityConfiguration : IEntityTypeConfiguration<Organisa
 
         // Relationship
         
-        builder.HasMany(u => u.Users)
+        builder.HasMany(o => o.Users)
         .WithOne()
-        .HasForeignKey(u => u.OrganisationId);
+        .HasForeignKey(o => o.OrganisationId);
     }
 }

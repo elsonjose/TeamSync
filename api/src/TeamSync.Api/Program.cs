@@ -24,13 +24,14 @@ var builder = WebApplication.CreateBuilder(args);
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration);
 
-    // Apply Migrations
-    await using var dbContext = new TeamSyncDbContext(builder.Configuration);
-    await dbContext.Database.MigrateAsync();
 }
 
 var app = builder.Build();
 {
+    // Apply Migrations
+    var dbContext = (TeamSyncDbContext)app.Services.CreateScope().ServiceProvider.GetRequiredService(typeof(ITeamSyncDbContext));
+    await dbContext.Database.MigrateAsync();
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

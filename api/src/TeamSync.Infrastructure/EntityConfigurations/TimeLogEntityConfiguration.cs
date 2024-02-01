@@ -9,11 +9,11 @@ public class TimeLogEntityConfiguration : IEntityTypeConfiguration<TimeLog>
     public void Configure(EntityTypeBuilder<TimeLog> builder)
     {
         builder.Property(t => t.Id).ValueGeneratedOnAdd();
-        builder.Property(t => t.ClockedInTime < t.ClockedOutTime);
 
         // Relationship
         builder.HasOne(t => t.User)
-            .WithMany()
+            .WithMany(u => u.TimeLogs)
+            .HasForeignKey(t => t.UserId)
             .HasPrincipalKey(t => t.UserId);
     }
 }

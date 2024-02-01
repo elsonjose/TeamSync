@@ -15,23 +15,28 @@ public class TeamSyncDbContext : DbContext, ITeamSyncDbContext
     public DbSet<Organisation> Organisations { get; set; }
     public DbSet<TimeLog> TimeLogs { get; set; }
 
-    private readonly IConfiguration _configuration;
+    // private readonly IConfiguration _configuration;
     private readonly IEncryptionProvider _provider;
 
-    public TeamSyncDbContext(IConfiguration configuration)
+    public TeamSyncDbContext(DbContextOptions<TeamSyncDbContext> dbContextOptions) : base(dbContextOptions)
     {
-        _configuration = configuration;
+        // var builder = new ConfigurationBuilder()
+        //             .SetBasePath(Directory.GetCurrentDirectory())
+        //             .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true)
+        //             .AddJsonFile("appSettings.Development.json", optional: true, reloadOnChange: true);
+        // _configuration = builder.Build();
 
-        (IConfigurationSection encryptionKeySection, IConfigurationSection encryptionIVSection) = GetEncryptionDetails(configuration);
+        // (IConfigurationSection encryptionKeySection, IConfigurationSection encryptionIVSection) = GetEncryptionDetails(_configuration);
 
-        var encryptionKey = Encoding.ASCII.GetBytes(encryptionKeySection.ToString());
-        var encryptionIV = Encoding.ASCII.GetBytes(encryptionIVSection.ToString());
+        var encryptionKey = Encoding.ASCII.GetBytes("ZZx0qsJ5IGThaA1InDs8/6BmaUb9hfN5dSYQxdlFaKgVVwG04HNuwG2s/Ty9odBS");
+        var encryptionIV = Encoding.ASCII.GetBytes("+Hij5RyepsASjSUmxLpVdAro3L3NG4XDOTVPH8sr1fg7ulr/9SMy/e0HnMKy7gnF");
 
         _provider = new AesProvider(encryptionKey, encryptionIV);
     }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

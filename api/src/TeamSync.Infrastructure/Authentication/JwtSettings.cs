@@ -5,7 +5,6 @@ namespace TeamSync.Infrastructure.Authencation;
 /// </summary>
 public class JwtSettings
 {
-
     /// <summary>
     /// Specifies the secret.
     /// </summary>

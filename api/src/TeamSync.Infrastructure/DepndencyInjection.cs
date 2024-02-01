@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using TeamSync.Application.Common;
 using TeamSync.Application.Interfaces;
 using TeamSync.Infrastructure.Authencation;
+using TeamSync.Infrastructure.Bindings;
 using TeamSync.Infrastructure.Implementation.Database;
 using TeamSync.Infrastructure.Services;
 
@@ -23,6 +24,7 @@ public static class DependencyInjection
         {
             options.UseNpgsql(configuration.GetConnectionString(TeamSyncConstants.DefaultConnection));
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            options.UseSnakeCaseNamingConvention();
         });
         return services;
     }

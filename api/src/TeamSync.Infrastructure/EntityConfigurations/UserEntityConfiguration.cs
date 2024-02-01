@@ -25,7 +25,8 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         .HasForeignKey(u => u.OrganisationId);
 
         builder.HasMany(u => u.TimeLogs)
-        .WithOne()
-        .HasForeignKey(u => u.UserId);
+        .WithOne(t => t.User)
+        .HasForeignKey(u => u.UserId)
+        .HasPrincipalKey(u => u.UserId);
     }
 }
