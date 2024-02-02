@@ -8,8 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using TeamSync.Application.Common;
 using TeamSync.Application.Interfaces;
 using TeamSync.Infrastructure.Authencation;
-using TeamSync.Infrastructure.Bindings;
 using TeamSync.Infrastructure.Implementation.Database;
+using TeamSync.Infrastructure.Implementations.Hasher;
 using TeamSync.Infrastructure.Services;
 
 namespace TeamSync.Infrastructure;
@@ -18,8 +18,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.Configure<HashConfig>(configuration.GetRequiredSection(nameof(HashConfig)));
         services.AddAuth(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddSingleton<IHasher, Hasher>();
         services.AddDbContext<ITeamSyncDbContext, TeamSyncDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString(TeamSyncConstants.DefaultConnection));

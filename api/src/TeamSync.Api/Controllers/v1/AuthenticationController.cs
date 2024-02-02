@@ -6,7 +6,6 @@ using TeamSync.Contracts.Authencation;
 
 namespace TeamSync.Api.Controllers.v1;
 
-[Route("auth")]
 public class AuthenticationController : ApiController
 {
     private readonly IAuthencticationService _authenticationService;
@@ -19,10 +18,9 @@ public class AuthenticationController : ApiController
     }
 
     [Authorize]
-    [HttpPost("login")]
+    [HttpPost("auth/login")]
     public IActionResult Login(LoginRequest request)
     {
-        Console.WriteLine("Request context : "+_requestContext.ToString());
         var loginResult = _authenticationService.Login(request.Email, request.Password);
         var response = new AuthencationResponse
         {
@@ -30,12 +28,12 @@ public class AuthenticationController : ApiController
             FirstName = loginResult.FirstName,
             LastName = loginResult.LastName,
             Email = loginResult.Email,
-            Token = loginResult.Token
+            Token = loginResult.Token,
         };
         return Ok(response);
     }
 
-    [HttpPost("register")]
+    [HttpPost("auth/register")]
     public IActionResult Register(RegisterRequest request)
     {
         var loginResult = _authenticationService.Register(request.FirstName, request.LastName, request.Email, request.Password);

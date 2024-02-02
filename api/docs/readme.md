@@ -8,3 +8,4 @@
 - [Adding MediatR](docs/20240128140325_adding_mediatR.md)
 - [Installing Postgresql](docs/20240128151956_installing_postgresql.md)
 - [Model Configuration](docs/20240202002354_model_configuration.md)
+- [Storing Passwords](docs/20240202235237_storing_passwords.md)

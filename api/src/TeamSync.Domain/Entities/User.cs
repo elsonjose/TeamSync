@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Linq;
+
 namespace TeamSync.Domain.Entities;
 
 /// <summary>
@@ -36,6 +38,11 @@ public class User
     public string Password { get; set; } = null!;
 
     /// <summary>
+    /// Specifies the password salt.
+    /// </summary>
+    public byte[] HashSalt { get; set; } = null!;
+
+    /// <summary>
     /// Specifies whether the account is active or not.
     /// </summary>
     public bool IsActive;
@@ -63,7 +70,7 @@ public class User
     /// <summary>
     /// Specifies the metadata
     /// </summary>
-    public Dictionary<string,object> Metadata {get;set;} = null!;
+    public JObject? Metadata { get; set; }
 
     /// <summary>
     /// Specifies the associated organisation for the user.

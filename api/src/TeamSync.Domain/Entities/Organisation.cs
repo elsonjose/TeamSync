@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Linq;
+
 namespace TeamSync.Domain.Entities;
 
 /// <summary>
@@ -21,11 +23,6 @@ public class Organisation
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// Specifies the organisation short code. To be used in JWT.
-    /// </summary>
-    public string ShortCode { get; set; } = null!;
-
-    /// <summary>
     /// Specifies whether the organisation is active or not.
     /// </summary>
     public bool IsActive { get; set; }
@@ -41,9 +38,14 @@ public class Organisation
     public string Password { get; set; } = null!;
 
     /// <summary>
+    /// Specifies the password salt.
+    /// </summary>
+    public byte[] HashSalt { get; set; } = null!;
+
+    /// <summary>
     /// Specifies the metadata
     /// </summary>
-    public Dictionary<string, object> Metadata { get; set; } = null!;
+    public JObject? Metadata { get; set; }
 
     /// <summary>
     /// Specifies the list of users associated with the organisation.

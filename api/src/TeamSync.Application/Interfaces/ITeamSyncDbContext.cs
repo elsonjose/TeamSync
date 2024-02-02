@@ -23,4 +23,6 @@ public interface ITeamSyncDbContext
     /// Specifies the collection of time logs.
     /// </summary>
     DbSet<TimeLog> TimeLogs { get; set; }
+
+    void SaveChages();
 }
