@@ -15,13 +15,13 @@ public interface IRequestContext
     /// Gets the user identifier from token.
     /// </summary>
     /// <returns>The user identifier.</returns>
-    int GetUserIdFromToken();
+    Guid GetUserIdFromToken();
 
     /// <summary>
     /// Gets the organisation identifier from the token.
     /// </summary>
     /// <returns>The organisation identifier.</returns>
-    int GetOrganisationIdFromToken();
+    Guid GetOrganisationIdFromToken();
 
     /// <summary>
     /// Sets the values
@@ -29,5 +29,5 @@ public interface IRequestContext
     /// <param name="timeZoneOffset"></param>
     /// <param name="userId"></param>
     /// <param name="OrgId"></param>
-    void SetValues(int timeZoneOffset, int userId, int orgId, bool isOrg);
+    void SetValues(int timeZoneOffset, Guid? userId, Guid orgId, bool isOrg);
 }

@@ -31,8 +31,8 @@ public class RequestContextSettingFilter : IActionFilter
         var timezoneOffset = Convert.ToInt32(httpContext.Request.Headers[ApiConstants.TimeZoneOffsetHeader.ToLower()]);
 
         var claims = httpContext.User.Claims;
-        var userId = Convert.ToInt32(claims.First(c => c.Type == TeamSyncClaimNames.UserId).Value);
-        var organisationId = Convert.ToInt32(claims.First(c => c.Type == JwtRegisteredClaimNames.Sub).Value);
+        var organisationId = new Guid(claims.First(c => c.Type == JwtRegisteredClaimNames.Sub).Value);
+        var userId = new Guid(claims.First(c => c.Type == TeamSyncClaimNames.UserId).Value);
         var isOrganisation = Convert.ToBoolean(claims.First(c => c.Type == TeamSyncClaimNames.IsOrganisation).Value);
 
         var requestContext = httpContext.RequestServices.GetRequiredService<IRequestContext>();

@@ -11,12 +11,12 @@ public class RequestContext : IRequestContext
     /// <summary>
     /// Specifies the orginisation identifier.
     /// </summary>
-    private int OrganisationId { get; set; }
+    private Guid OrganisationId { get; set; }
 
     /// <summary>
     /// Specifies the user identifier.
     /// </summary>
-    private int UserId { get; set; }
+    private Guid? UserId { get; set; }
 
     /// <summary>
     /// Specifies whether the user is organisation.
@@ -24,7 +24,7 @@ public class RequestContext : IRequestContext
     private bool IsOrganisation { get; set; }
 
 
-    public int GetOrganisationIdFromToken()
+    public Guid GetOrganisationIdFromToken()
     {
         return OrganisationId;
     }
@@ -34,12 +34,16 @@ public class RequestContext : IRequestContext
         return TimeZoneOffset;
     }
 
-    public int GetUserIdFromToken()
+    public Guid GetUserIdFromToken()
     {
-        return UserId;
+        if (UserId.HasValue)
+        {
+            return UserId.Value;
+        }
+        throw new Exception("User id not found");
     }
 
-    public void SetValues(int timeZoneOffset, int userId, int orgId, bool isOrg)
+    public void SetValues(int timeZoneOffset, Guid? userId, Guid orgId, bool isOrg)
     {
         TimeZoneOffset = timeZoneOffset;
         OrganisationId = orgId;
