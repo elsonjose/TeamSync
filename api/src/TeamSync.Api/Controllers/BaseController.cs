@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace TeamSync.Api.Controllers.v1;
+namespace TeamSync.Api.Controllers;
 
 [ApiController]
 [Route("api/v1")]
-public class ApiController : ControllerBase
+public class BaseController : ControllerBase
 {
     private ISender? _mediatR;
 

@@ -1,4 +1,4 @@
-namespace TeamSync.Infrastructure.Authencation;
+namespace TeamSync.Infrastructure.Services.Authencation;
 
 /// <summary>
 /// Defines the JWT settings model.

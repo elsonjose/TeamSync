@@ -1,16 +1,11 @@
-namespace TeamSync.Infrastructure.Authencation;
+namespace TeamSync.Infrastructure.Services.Authencation;
 
 /// <summary>
 /// Defines the class with custom claim names.
 /// </summary>
 public static class TeamSyncClaimNames
 {
-    /// <summary>
-    /// Specifies the claim name organisation id.
-    /// </summary>
-    public const string OrganisationId = "orgId";
-
-    /// <summary>
+   /// <summary>
     /// Specifies the claim name organisation id.
     /// </summary>
     public const string UserId = "userId";

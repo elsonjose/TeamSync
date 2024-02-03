@@ -1,6 +1,7 @@
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Mvc.Filters;
 using TeamSync.Application.Interfaces;
-using TeamSync.Infrastructure.Authencation;
+using TeamSync.Infrastructure.Services.Authencation;
 
 namespace TeamSync.Api.Filters;
 public class RequestContextSettingFilter : IActionFilter
@@ -31,7 +32,7 @@ public class RequestContextSettingFilter : IActionFilter
 
         var claims = httpContext.User.Claims;
         var userId = Convert.ToInt32(claims.First(c => c.Type == TeamSyncClaimNames.UserId).Value);
-        var organisationId = Convert.ToInt32(claims.First(c => c.Type == TeamSyncClaimNames.OrganisationId).Value);
+        var organisationId = Convert.ToInt32(claims.First(c => c.Type == JwtRegisteredClaimNames.Sub).Value);
         var isOrganisation = Convert.ToBoolean(claims.First(c => c.Type == TeamSyncClaimNames.IsOrganisation).Value);
 
         var requestContext = httpContext.RequestServices.GetRequiredService<IRequestContext>();

@@ -7,10 +7,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using TeamSync.Application.Common;
 using TeamSync.Application.Interfaces;
-using TeamSync.Infrastructure.Authencation;
 using TeamSync.Infrastructure.Implementation.Database;
 using TeamSync.Infrastructure.Implementations.Hasher;
 using TeamSync.Infrastructure.Services;
+using TeamSync.Infrastructure.Services.Authencation;
 
 namespace TeamSync.Infrastructure;
 

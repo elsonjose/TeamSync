@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TeamSync.Contracts\TeamSync.Contracts.csproj" />
     <ProjectReference Include="..\TeamSync.Application\TeamSync.Application.csproj" />
     <ProjectReference Include="..\TeamSync.Infrastructure\TeamSync.Infrastructure.csproj" />
   </ItemGroup>

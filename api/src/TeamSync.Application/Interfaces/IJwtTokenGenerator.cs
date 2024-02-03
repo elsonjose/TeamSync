@@ -10,9 +10,8 @@ public interface IJwtTokenGenerator
     /// Generates the JWT token.
     /// </summary>
     /// <param name="userId"></param>
-    /// <param name="firstName"></param>
-    /// <param name="lastname"></param>
     /// <param name="organisationId"></param>
+    /// <param name="isOrganisation"></param>
     /// <returns>The JWT token.</returns>
-    public string GenerateToken(int userId, string firstName, string lastname, int organisationId);
+    public string GenerateToken(Guid? userId, Guid organisationId, bool isOrganisation);
 }
