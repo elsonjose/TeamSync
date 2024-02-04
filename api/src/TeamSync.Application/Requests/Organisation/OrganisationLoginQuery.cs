@@ -1,6 +1,6 @@
 using MediatR;
-using TeamSync.Application.Common;
-using TeamSync.Application.Common.Authetication;
+using TeamSync.Application.Common.Dto;
+using TeamSync.Application.Common.Dto.Authetication;
 
 namespace TeamSync.Application.Requests.Organisation
 {
@@ -32,8 +32,7 @@ namespace TeamSync.Application.Requests.Organisation
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns>The authentication response.</returns>
         public Task<ResponseDto<AuthenticationResposeDto>> Handle(OrganisationLoginQuery request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();

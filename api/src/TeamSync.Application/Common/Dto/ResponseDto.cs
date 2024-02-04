@@ -1,4 +1,4 @@
-namespace TeamSync.Application.Common;
+namespace TeamSync.Application.Common.Dto;
 
 /// <summary>
 /// Defines the response of type <seealso cref="T"/>

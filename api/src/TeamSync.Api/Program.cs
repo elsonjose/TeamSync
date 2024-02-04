@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TeamSync.Api.Filters;
+using TeamSync.Api.Middlewares;
 using TeamSync.Application;
 using TeamSync.Application.Implementations;
 using TeamSync.Application.Interfaces;
@@ -36,6 +37,8 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseMiddleware<GlobalExceptionHandler>();
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();

@@ -1,6 +1,6 @@
 using MediatR;
-using TeamSync.Application.Common;
-using TeamSync.Application.Common.Authetication;
+using TeamSync.Application.Common.Dto;
+using TeamSync.Application.Common.Dto.Authetication;
 using TeamSync.Application.Interfaces;
 
 namespace TeamSync.Application.Requests.Organisation
@@ -13,7 +13,7 @@ namespace TeamSync.Application.Requests.Organisation
         /// <summary>
         /// Specifies the organisation name.
         /// </summary>
-        /// <example>Org name</example>
+        /// <example>Organisation name</example>
         public string Name { get; set; } = null!;
     }
 
@@ -55,7 +55,7 @@ namespace TeamSync.Application.Requests.Organisation
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>The authentication response.</returns>
         public async Task<ResponseDto<AuthenticationResposeDto>> Handle(OrganisationRegisterCommand request, CancellationToken cancellationToken)
         {
             var (hashedPassword, salt) = _hasher.HashPassword(request.Password);

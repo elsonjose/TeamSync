@@ -1,4 +1,4 @@
-namespace TeamSync.Application.Common.Authetication
+namespace TeamSync.Application.Common.Dto.Authetication
 {
     /// <summary>
     /// Defines the authentication response DTO.
