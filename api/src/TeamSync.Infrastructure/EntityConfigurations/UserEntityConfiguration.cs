@@ -3,8 +3,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TeamSync.Domain.Entities;
 
 namespace TeamSync.Infrastructure.EntityConfigurations;
+
+/// <summary>
+/// Defines the entity type configuration for <seealso cref="TimeLog"/>
+/// </summary>
 public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
+    /// <summary>
+    /// Defines the configure method.
+    /// </summary>
+    /// <param name="builder"></param>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.Property(u => u.Id).ValueGeneratedOnAdd();

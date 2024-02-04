@@ -5,7 +5,6 @@ namespace TeamSync.Application.Interfaces;
 /// </summary>
 public interface IJwtTokenGenerator
 {
-
     /// <summary>
     /// Generates the JWT token.
     /// </summary>

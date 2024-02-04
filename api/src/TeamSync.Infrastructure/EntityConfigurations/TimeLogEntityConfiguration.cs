@@ -4,8 +4,15 @@ using TeamSync.Domain.Entities;
 
 namespace TeamSync.Infrastructure.EntityConfigurations;
 
+/// <summary>
+/// Defines the entity type configuration for <seealso cref="TimeLog"/>
+/// </summary>
 public class TimeLogEntityConfiguration : IEntityTypeConfiguration<TimeLog>
 {
+    /// <summary>
+    /// Defines the configure method.
+    /// </summary>
+    /// <param name="builder"></param>
     public void Configure(EntityTypeBuilder<TimeLog> builder)
     {
         builder.Property(t => t.Id).ValueGeneratedOnAdd();

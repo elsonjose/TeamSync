@@ -3,8 +3,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TeamSync.Domain.Entities;
 
 namespace TeamSync.Infrastructure.EntityConfigurations;
+
+/// <summary>
+/// Defines the entity type configuration for <seealso cref="Organisation"/>
+/// </summary>
 public class OrganisationEntityConfiguration : IEntityTypeConfiguration<Organisation>
 {
+    /// <summary>
+    /// Defines the configure method.
+    /// </summary>
+    /// <param name="builder"></param>
     public void Configure(EntityTypeBuilder<Organisation> builder)
     {
         builder.Property(u => u.Id).ValueGeneratedOnAdd();

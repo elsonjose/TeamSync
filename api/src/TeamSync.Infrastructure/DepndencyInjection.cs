@@ -14,8 +14,17 @@ using TeamSync.Infrastructure.Services.Authencation;
 
 namespace TeamSync.Infrastructure;
 
+/// <summary>
+/// Dependency injection for infrastructure.
+/// </summary>
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Defines the method to add infrastructure services for dependency injection.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns>The service collection with added services of instructure.</returns>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.Configure<HashConfig>(configuration.GetRequiredSection(nameof(HashConfig)));
@@ -31,6 +40,12 @@ public static class DependencyInjection
         return services;
     }
 
+    /// <summary>
+    /// Defines the method to add authentication configuration.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns></returns>
     private static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
     {
         var jwtSettings = new JwtSettings();

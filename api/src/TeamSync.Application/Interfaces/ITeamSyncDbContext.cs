@@ -8,7 +8,6 @@ namespace TeamSync.Application.Interfaces;
 /// </summary>
 public interface ITeamSyncDbContext
 {
-
     /// <summary>
     /// Specifies the collection of users.
     /// </summary>
@@ -24,5 +23,15 @@ public interface ITeamSyncDbContext
     /// </summary>
     DbSet<TimeLog> TimeLogs { get; set; }
 
-    void SaveChages();
+    /// <summary>
+    /// Defines the method to save changes.
+    /// </summary>
+    /// <returns>The number of entities written to db.</returns>
+    int SaveChanges();
+
+    /// <summary>
+    /// Defines the method to save changes asynchronously.
+    /// </summary>
+    /// <returns> A task awaiting number of entities written to db.</returns>
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

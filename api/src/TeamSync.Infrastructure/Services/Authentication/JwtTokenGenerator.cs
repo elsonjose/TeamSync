@@ -12,8 +12,21 @@ namespace TeamSync.Infrastructure.Services.Authencation;
 /// </summary>
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
+    /// <summary>
+    /// Specifies the date time provider.
+    /// </summary>
     private readonly IDateTimeProvider _dateTimeProvider;
+
+    /// <summary>
+    /// Specifies the jwt confiuration.
+    /// </summary>
     private readonly JwtSettings _jwtSettings;
+
+    /// <summary>
+    /// Initializes a new instance of <seealso cref="JwtTokenGenerator"/>
+    /// </summary>
+    /// <param name="dateTimeProvider"></param>
+    /// <param name="options"></param>
     public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> options)
     {
         _dateTimeProvider = dateTimeProvider;
