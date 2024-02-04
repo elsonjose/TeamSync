@@ -1,6 +1,5 @@
 using System.Text.RegularExpressions;
 using FluentValidation;
-using FluentValidation.Validators;
 using TeamSync.Application.Interfaces;
 
 namespace TeamSync.Application.Requests.Organisation;
