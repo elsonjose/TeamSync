@@ -1,0 +1,36 @@
+name: Build Team Sync Api
+
+on:
+#   pull_request:
+#     branches:
+#       - develop
+#     paths:
+#       - api/**
+    push:
+        branches:
+            - actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: ./api
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet 8.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0"
+      - uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+      - name: Installing dependencies
+        run: dotnet restore
+      - name: Build project
+        run: dotnet build
+      - name: Execute Tests
+        run: dotnet test
