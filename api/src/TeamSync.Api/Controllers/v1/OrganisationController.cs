@@ -5,10 +5,16 @@ namespace TeamSync.Api.Controllers.v1;
 
 public class OrganisationController : BaseController
 {
+    /// <summary>
+    /// Registers an organisation.
+    /// </summary>
+    /// <param name="organisationRegisterCommand"></param>
+    /// <returns>ID of the organisation and the authentication token</returns>
     [HttpPost("organisation/register")]
-    public IActionResult RegisterOrganisation([FromBody] OrganisationRegisterCommand organisationRegisterCommand)
+    public async Task<IActionResult> RegisterOrganisation([FromBody] OrganisationRegisterCommand organisationRegisterCommand)
     {
-        return Ok();
+        var response = await Mediator.Send(organisationRegisterCommand);
+        return Ok(response);
     }
 
     [HttpPost("organisation/login")]

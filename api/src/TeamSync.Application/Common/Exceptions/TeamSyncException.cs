@@ -1,4 +1,3 @@
-using System.Net;
 using static TeamSync.Application.Common.TeamSyncEnums;
 
 namespace TeamSync.Application.Common.Exceptions;
