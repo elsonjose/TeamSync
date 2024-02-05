@@ -9,7 +9,15 @@ namespace TeamSync.Application.Requests.Organisation;
 /// </summary>
 public class OrganisationRegisterCommandValidator : AbstractValidator<OrganisationRegisterCommand>
 {
+    /// <summary>
+    /// Specifies the databse context.
+    /// </summary>
     private readonly ITeamSyncDbContext _teamSyncDbContext;
+
+    /// <summary>
+    /// Initializes a new instance of the validator.
+    /// </summary>
+    /// <param name="teamSyncDbContext"></param>
     public OrganisationRegisterCommandValidator(ITeamSyncDbContext teamSyncDbContext)
     {
         _teamSyncDbContext = teamSyncDbContext;
