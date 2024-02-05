@@ -1,14 +1,14 @@
 name: Build Team Sync Api
 
 on:
-#   pull_request:
-#     branches:
-#       - develop
-#     paths:
-#       - api/**
-    push:
-        branches:
-            - actions
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - api/**
+    # push:
+    #     branches:
+    #         - actions
 
 jobs:
   build:
