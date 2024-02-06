@@ -1,11 +1,13 @@
-name: Build Team Sync Api
+name: Build TeamSync API
 
 on:
   pull_request:
     branches:
       - develop
     paths:
-      - api/**
+      - api/src/**
+      - api/test/**
+      - api/TeamSync.sln
     # push:
     #     branches:
     #         - actions
