@@ -1,6 +1,6 @@
 using TeamSync.Application.Interfaces;
 
-namespace TeamSync.Application.Implementations;
+namespace TeamSync.Infrastructure.Implementations;
 public class RequestContext : IRequestContext
 {
     /// <summary>

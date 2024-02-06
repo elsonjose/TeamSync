@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TeamSync.Api.Filters;
 using TeamSync.Api.Middlewares;
 using TeamSync.Application;
-using TeamSync.Application.Implementations;
+using TeamSync.Infrastructure.Implementations;
 using TeamSync.Application.Interfaces;
 using TeamSync.Infrastructure;
 using TeamSync.Infrastructure.Implementation.Database;
@@ -19,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
     });
 
     builder.Services.AddScoped<IRequestContext, RequestContext>();
+    builder.Services.AddTransient<IMiddleware, GlobalExceptionHandler>();
 
     // Dependency injection
     builder.Services
@@ -38,7 +39,6 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    app.UseMiddleware<GlobalExceptionHandler>();
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
