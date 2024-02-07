@@ -23,15 +23,16 @@ public class OrganisationEntityConfiguration : IEntityTypeConfiguration<Organisa
             .ValueGeneratedOnAdd();
         builder.Property(u => u.Name).IsRequired().HasMaxLength(256);
         builder.Property(u => u.IsActive).HasDefaultValue(true);
-        builder.Property(u => u.Email).HasMaxLength(256).IsRequired();
-        builder.Property(u => u.Password).IsRequired();
-        builder.Property(u => u.HashSalt).IsRequired();
         builder.Property(u => u.Metadata).HasColumnType("jsonb");
 
         // Relationship
-        
+
         builder.HasMany(o => o.Users)
         .WithOne()
         .HasForeignKey(o => o.OrganisationId);
+
+        builder.HasOne(o => o.AdminUser)
+        .WithOne()
+        .HasForeignKey<Organisation>(o => o.AdminUserId);
     }
 }

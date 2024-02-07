@@ -48,6 +48,11 @@ public class User
     public bool IsActive;
 
     /// <summary>
+    /// Specifies whether the account is the admin user or not.
+    /// </summary>
+    public bool IsAdminUser;
+
+    /// <summary>
     /// Specifies whether the user is currently clocked in or not.
     /// </summary>
     public bool IsClockedIn;

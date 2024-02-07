@@ -16,10 +16,4 @@ public class OrganisationController : BaseController
         var response = await Mediator.Send(organisationRegisterCommand);
         return Ok(response);
     }
-
-    [HttpPost("organisation/login")]
-    public IActionResult LoginOrganisation(OrganisationLoginQuery organisationLoginQuery)
-    {
-        return Ok();
-    }
 }

@@ -74,9 +74,9 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
         var organisation = new Domain.Entities.Organisation()
         {
             Name = request.Name,
-            Email = request.Email,
-            Password = hashedPassword,
-            HashSalt = salt
+            // Email = request.Email,
+            // Password = hashedPassword,
+            // HashSalt = salt
         };
         await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);

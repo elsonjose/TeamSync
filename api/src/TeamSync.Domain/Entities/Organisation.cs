@@ -28,19 +28,20 @@ public class Organisation
     public bool IsActive { get; set; }
 
     /// <summary>
-    /// Specifies the organisation email. To be used in domain checking.
+    /// Specifies whether to enforce domain check for the organsiation. 
+    /// Setting it as true allows only users with the same domain as the organisation to  be added to the organisation.
     /// </summary>
-    public string Email { get; set; } = null!;
+    public bool EnforceDomainCheck { get; set; }
 
     /// <summary>
-    /// Specifies the organisation password.
+    /// Specifies the admin user identifier.
     /// </summary>
-    public string Password { get; set; } = null!;
-
+    public long AdminUserId {get; set;}
+    
     /// <summary>
-    /// Specifies the password salt.
+    /// Specifies the admin user.
     /// </summary>
-    public byte[] HashSalt { get; set; } = null!;
+    public User AdminUser { get; set; } = null!;
 
     /// <summary>
     /// Specifies the metadata

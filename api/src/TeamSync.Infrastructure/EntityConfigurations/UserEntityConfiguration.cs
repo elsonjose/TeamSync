@@ -26,6 +26,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.Email).HasMaxLength(256).IsRequired();
         builder.Property(u => u.Password).IsRequired();
         builder.Property(u => u.HashSalt).IsRequired();
+        builder.Property(u => u.IsAdminUser).IsRequired();
         builder.Property(u => u.IsActive).HasDefaultValue(true);
         builder.Property(u => u.IsClockedIn).HasDefaultValue(false);
         builder.Property(u => u.Metadata).HasColumnType("jsonb");
