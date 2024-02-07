@@ -21,8 +21,13 @@
        Approve or reject corrections made by the user.
   - #### User
     1. ##### Sign In
-        The user can sign in using email and password.
-
+       The user can sign in using email and password.
+    2. ##### Clock in
+       User can clock in. This creates a new entry in time-logs. Also updates users table with additional info.
+    3. ##### Clock out
+       User can clock out. This makes the same changes.
+    4. ##### Corrections
+       User can regularize their attendance.
 <hr>
 
 ### Learnings
