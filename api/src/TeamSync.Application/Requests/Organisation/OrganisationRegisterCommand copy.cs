@@ -8,8 +8,20 @@ namespace TeamSync.Application.Requests.Organisation;
 /// <summary>
 /// Defines the register command for organisation.
 /// </summary>
-public class OrganisationRegisterCommand : OrganisationLoginQuery
+public class OrganisationRegisterCommand : IRequest<ResponseDto<AuthenticationResposeDto>>
 {
+    /// <summary>
+    /// Specifies the input email.
+    /// </summary>
+    /// <example>input@email.com</example>
+    public string Email { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies the input password.
+    /// </summary>
+    /// <example>p@ssword</example>
+    public string Password { get; set; } = null!;
+
     /// <summary>
     /// Specifies the organisation name.
     /// </summary>
