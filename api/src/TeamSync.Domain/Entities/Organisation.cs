@@ -34,16 +34,6 @@ public class Organisation
     public bool EnforceDomainCheck { get; set; }
 
     /// <summary>
-    /// Specifies the admin user identifier.
-    /// </summary>
-    public long AdminUserId {get; set;}
-    
-    /// <summary>
-    /// Specifies the admin user.
-    /// </summary>
-    public User AdminUser { get; set; } = null!;
-
-    /// <summary>
     /// Specifies the metadata
     /// </summary>
     public JObject? Metadata { get; set; }

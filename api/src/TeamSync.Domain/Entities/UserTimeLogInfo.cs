@@ -31,10 +31,5 @@ namespace TeamSync.Domain.Entities
         /// Specifies the last clocked in time of the user.
         /// </summary>
         public long? LastClockedTime;
-
-        /// <summary>
-        /// Specifies the user entity.
-        /// </summary>
-        public User User {get; set;} = null!;
     }
 }

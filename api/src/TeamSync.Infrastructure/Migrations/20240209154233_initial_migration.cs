@@ -26,12 +26,40 @@ namespace TeamSync.Infrastructure.Migrations
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     enforce_domain_check = table.Column<bool>(type: "boolean", nullable: false),
-                    admin_user_id = table.Column<long>(type: "bigint", nullable: false),
                     metadata = table.Column<JObject>(type: "jsonb", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_organisations", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    password = table.Column<string>(type: "text", nullable: false),
+                    hash_salt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    metadata = table.Column<JObject>(type: "jsonb", nullable: true),
+                    organisation_id = table.Column<long>(type: "bigint", nullable: false),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    is_admin_user = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_users", x => x.id);
+                    table.UniqueConstraint("ak_users_user_id", x => x.user_id);
+                    table.ForeignKey(
+                        name: "fk_users_organisations_organisation_id",
+                        column: x => x.organisation_id,
+                        principalTable: "organisations",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,6 +76,12 @@ namespace TeamSync.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_time_logs", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_time_logs_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,54 +91,20 @@ namespace TeamSync.Infrastructure.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    is_clocked_in = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                    is_clocked_in = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    last_clocked_id = table.Column<long>(type: "bigint", nullable: false),
+                    last_clocked_time = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_user_time_log_info", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "users",
-                columns: table => new
-                {
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    hash_salt = table.Column<byte[]>(type: "bytea", nullable: false),
-                    metadata = table.Column<JObject>(type: "jsonb", nullable: true),
-                    user_time_log_info_id = table.Column<long>(type: "bigint", nullable: false),
-                    organisation_id = table.Column<long>(type: "bigint", nullable: false),
-                    is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    is_admin_user = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_users", x => x.id);
-                    table.UniqueConstraint("ak_users_user_id", x => x.user_id);
                     table.ForeignKey(
-                        name: "fk_users_organisations_organisation_id",
-                        column: x => x.organisation_id,
-                        principalTable: "organisations",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_users_user_time_log_info_user_time_log_info_id",
-                        column: x => x.user_time_log_info_id,
-                        principalTable: "user_time_log_info",
-                        principalColumn: "id",
+                        name: "fk_user_time_log_info_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "ix_organisations_admin_user_id",
-                table: "organisations",
-                column: "admin_user_id",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_organisations_organisation_id",
@@ -133,59 +133,22 @@ namespace TeamSync.Infrastructure.Migrations
                 table: "users",
                 column: "user_id",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "ix_users_user_time_log_info_id",
-                table: "users",
-                column: "user_time_log_info_id");
-
-            migrationBuilder.AddForeignKey(
-                name: "fk_organisations_users_admin_user_id",
-                table: "organisations",
-                column: "admin_user_id",
-                principalTable: "users",
-                principalColumn: "id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "fk_time_logs_users_user_id",
-                table: "time_logs",
-                column: "user_id",
-                principalTable: "users",
-                principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "fk_user_time_log_info_users_user_id",
-                table: "user_time_log_info",
-                column: "user_id",
-                principalTable: "users",
-                principalColumn: "user_id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "fk_organisations_users_admin_user_id",
-                table: "organisations");
-
-            migrationBuilder.DropForeignKey(
-                name: "fk_user_time_log_info_users_user_id",
-                table: "user_time_log_info");
-
             migrationBuilder.DropTable(
                 name: "time_logs");
+
+            migrationBuilder.DropTable(
+                name: "user_time_log_info");
 
             migrationBuilder.DropTable(
                 name: "users");
 
             migrationBuilder.DropTable(
                 name: "organisations");
-
-            migrationBuilder.DropTable(
-                name: "user_time_log_info");
         }
     }
 }

@@ -80,9 +80,8 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
         {
             Name = request.Name,
             EnforceDomainCheck = request.IsDomainCheckEnabled,
-            
             // Set it to false. Only after email verification set it as true.
-            IsActive = false
+            IsActive = false,
         };
         await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
@@ -92,17 +91,23 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
         var adminUser = new Domain.Entities.User()
         {
             FirstName = request.Name,
+            LastName = nameof(Organisation),
             Email = request.Email,
             Password = hashedPassword,
             HashSalt = salt,
             IsAdminUser = true,
-            
-            // Move clock in details to another table.
+            OrganisationId = organisation.Id,
             
             // Set it to false. Only after email verification set it as true.
-            IsActive = false
+            IsActive = false,
+
+            // User time-log details
+            UserTimeLogInfo = new()
+            {
+                IsClockedIn = false,
+            }
         };
-        await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
+        await _dbContext.Users.AddAsync(adminUser, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         var token = _jwtTokenGenerator.GenerateToken(null, organisation.OrganisationId, true);

@@ -20,11 +20,7 @@ public class UserTimeLogInfoEntityConfiguration : IEntityTypeConfiguration<UserT
             .HasColumnType("uuid")
             .IsRequired();
         builder.Property(u => u.IsClockedIn).IsRequired().HasDefaultValue(false);
-
-        // Relationship
-        builder.HasOne(u => u.User)
-        .WithOne()
-        .HasForeignKey<UserTimeLogInfo>(u => u.UserId)
-        .HasPrincipalKey<User>(u => u.UserId);
+        builder.Property(u => u.LastClockedId).IsRequired();
+        builder.Property(u => u.LastClockedTime).IsRequired();
     }
 }

@@ -1,13 +1,14 @@
 @Api_HostAddress = http://localhost:5019/api/v1
 
-POST {{Api_HostAddress}}/auth/login
+POST {{Api_HostAddress}}/organisation/register
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZ2l2ZW5fbmFtZSI6ImZpcnROYW1lIiwiZmFtaWx5X25hbWUiOiJsYXN0TmFtZSIsImp0aSI6IjM0MTgxOWY2LWE2YmUtNDM5ZC05MmQ5LWJkMmZlOWQyNmJmZiIsIm9yZ0lkIjoiMSIsInVzZXJJZCI6IjEiLCJpc09yZyI6IkZhbHNlIiwiZXhwIjoxNzA2OTAxMDE5LCJpc3MiOiJUZWFtU3luYyIsImF1ZCI6IlRlYW1TeW5jIn0.o40BDuz-23CQhhKi-IbERgxMIi9OsjiSe2RLdBPTUWg
 Timezone-Offset: 330
 
 {
     "email": "elsonjoseofficial@gmail.com",
-    "password": "striang"
+    "password": "P@ssword123",
+    "name": "TeamSync",
+    "isDomainCheckEnabled": false
 }
 
 ###

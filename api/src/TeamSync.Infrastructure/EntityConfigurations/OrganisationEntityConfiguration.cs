@@ -30,9 +30,5 @@ public class OrganisationEntityConfiguration : IEntityTypeConfiguration<Organisa
         builder.HasMany(o => o.Users)
         .WithOne()
         .HasForeignKey(o => o.OrganisationId);
-
-        builder.HasOne(o => o.AdminUser)
-        .WithOne()
-        .HasForeignKey<Organisation>(o => o.AdminUserId);
     }
 }

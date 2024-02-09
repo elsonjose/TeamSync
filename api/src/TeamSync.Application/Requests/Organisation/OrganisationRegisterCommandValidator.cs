@@ -63,7 +63,7 @@ public class OrganisationRegisterCommandValidator : AbstractValidator<Organisati
             .WithMessage("'Password' cannot be empty.");
         RuleFor(o => o.Name).NotNull().NotEmpty()
             .WithMessage("'Name' cannot be empty.");
-        RuleFor(o => o.IsDomainCheckEnabled).NotNull().NotEmpty()
+        RuleFor(o => o.IsDomainCheckEnabled).NotNull()
             .WithMessage("'IsDomainCheckEnabled' cannot be empty.");
     }
 
