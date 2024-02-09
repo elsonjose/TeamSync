@@ -13,8 +13,8 @@ using TeamSync.Infrastructure.Implementation.Database;
 namespace TeamSync.Infrastructure.Migrations
 {
     [DbContext(typeof(TeamSyncDbContext))]
-    [Migration("20240207174700_Initial_Migration")]
-    partial class Initial_Migration
+    [Migration("20240209144550_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -150,12 +150,6 @@ namespace TeamSync.Infrastructure.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_admin_user");
 
-                    b.Property<bool>("IsClockedIn")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("is_clocked_in");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -181,6 +175,10 @@ namespace TeamSync.Infrastructure.Migrations
                         .HasColumnName("user_id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
+                    b.Property<long>("UserTimeLogInfoId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_time_log_info_id");
+
                     b.HasKey("Id")
                         .HasName("pk_users");
 
@@ -194,7 +192,39 @@ namespace TeamSync.Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("ix_users_user_id");
 
+                    b.HasIndex("UserTimeLogInfoId")
+                        .HasDatabaseName("ix_users_user_time_log_info_id");
+
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("TeamSync.Domain.Entities.UserTimeLogInfo", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsClockedIn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_clocked_in");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_time_log_info");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_user_time_log_info_user_id");
+
+                    b.ToTable("user_time_log_info", (string)null);
                 });
 
             modelBuilder.Entity("TeamSync.Domain.Entities.Organisation", b =>
@@ -231,7 +261,29 @@ namespace TeamSync.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_users_organisations_organisation_id");
 
+                    b.HasOne("TeamSync.Domain.Entities.UserTimeLogInfo", "UserTimeLogInfo")
+                        .WithMany()
+                        .HasForeignKey("UserTimeLogInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_users_user_time_log_info_user_time_log_info_id");
+
                     b.Navigation("Organisation");
+
+                    b.Navigation("UserTimeLogInfo");
+                });
+
+            modelBuilder.Entity("TeamSync.Domain.Entities.UserTimeLogInfo", b =>
+                {
+                    b.HasOne("TeamSync.Domain.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("TeamSync.Domain.Entities.UserTimeLogInfo", "UserId")
+                        .HasPrincipalKey("TeamSync.Domain.Entities.User", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_time_log_info_users_user_id");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TeamSync.Domain.Entities.Organisation", b =>

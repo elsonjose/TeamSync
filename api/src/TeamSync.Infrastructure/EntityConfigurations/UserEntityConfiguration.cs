@@ -5,7 +5,7 @@ using TeamSync.Domain.Entities;
 namespace TeamSync.Infrastructure.EntityConfigurations;
 
 /// <summary>
-/// Defines the entity type configuration for <seealso cref="TimeLog"/>
+/// Defines the entity type configuration for <seealso cref="User"/>
 /// </summary>
 public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
@@ -28,10 +28,9 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.HashSalt).IsRequired();
         builder.Property(u => u.IsAdminUser).IsRequired();
         builder.Property(u => u.IsActive).HasDefaultValue(true);
-        builder.Property(u => u.IsClockedIn).HasDefaultValue(false);
         builder.Property(u => u.Metadata).HasColumnType("jsonb");
 
-        // Relationship
+        // Relationships
 
         builder.HasOne(u => u.Organisation)
         .WithMany(u => u.Users)
@@ -41,5 +40,10 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         .WithOne(t => t.User)
         .HasForeignKey(u => u.UserId)
         .HasPrincipalKey(u => u.UserId);
+
+        builder.HasOne(u => u.UserTimeLogInfo)
+        .WithOne()
+        .HasForeignKey<UserTimeLogInfo>(u => u.UserId)
+        .HasPrincipalKey<User>(u => u.UserId);
     }
 }

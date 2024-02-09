@@ -25,7 +25,7 @@ public class User
     /// <summary>
     /// Specifies the last name.
     /// </summary>
-    public string LastName = null!;
+    public string LastName { get; set; } = null!;
 
     /// <summary>
     /// Specifies the email.
@@ -53,21 +53,6 @@ public class User
     public bool IsAdminUser;
 
     /// <summary>
-    /// Specifies whether the user is currently clocked in or not.
-    /// </summary>
-    public bool IsClockedIn;
-
-    /// <summary>
-    /// Specifies the last clocked in id of the user.
-    /// </summary>
-    public long? LastClockedId;
-
-    /// <summary>
-    /// Specifies the last clocked in time of the user.
-    /// </summary>
-    public long? LastClockedTime;
-
-    /// <summary>
     /// Specifies the orgnaisation id of the user.
     /// </summary>
     public long OrganisationId;
@@ -76,6 +61,11 @@ public class User
     /// Specifies the metadata
     /// </summary>
     public JObject? Metadata { get; set; }
+
+    /// <summary>
+    /// Specifies the user time log info entity.
+    /// </summary>
+    public UserTimeLogInfo UserTimeLogInfo { get; set; } = null!;
 
     /// <summary>
     /// Specifies the associated organisation for the user.

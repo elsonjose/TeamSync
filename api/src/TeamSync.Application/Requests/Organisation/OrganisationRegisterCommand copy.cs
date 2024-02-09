@@ -27,6 +27,12 @@ public class OrganisationRegisterCommand : IRequest<ResponseDto<AuthenticationRe
     /// </summary>
     /// <example>Organisation name</example>
     public string Name { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies whether to enforce domain check allowing only the users with the same domain to be added to this organisation.
+    /// </summary>
+    /// <example>Organisation name</example>
+    public bool IsDomainCheckEnabled { get; set; }
 }
 
 /// <summary>
@@ -70,13 +76,31 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
     /// <returns>The authentication response.</returns>
     public async Task<ResponseDto<AuthenticationResposeDto>> Handle(OrganisationRegisterCommand request, CancellationToken cancellationToken)
     {
-        var (hashedPassword, salt) = _hasher.HashPassword(request.Password);
         var organisation = new Domain.Entities.Organisation()
         {
             Name = request.Name,
-            // Email = request.Email,
-            // Password = hashedPassword,
-            // HashSalt = salt
+            EnforceDomainCheck = request.IsDomainCheckEnabled,
+            
+            // Set it to false. Only after email verification set it as true.
+            IsActive = false
+        };
+        await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        var (hashedPassword, salt) = _hasher.HashPassword(request.Password);
+
+        var adminUser = new Domain.Entities.User()
+        {
+            FirstName = request.Name,
+            Email = request.Email,
+            Password = hashedPassword,
+            HashSalt = salt,
+            IsAdminUser = true,
+            
+            // Move clock in details to another table.
+            
+            // Set it to false. Only after email verification set it as true.
+            IsActive = false
         };
         await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
