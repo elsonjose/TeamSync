@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using TeamSync.Application.Common.Exceptions;
 using static TeamSync.Application.Common.TeamSyncEnums;
 
@@ -67,11 +68,11 @@ public class GlobalExceptionHandler : IMiddleware
     /// <param name="stackTrace"></param>
     /// <param name="problemDetails"></param>
     /// <returns></returns>
-    private async Task HandleExceptionResponse(HttpContext context, string message, string? stackTrace, ProblemDetails problemDetails)
+    private static async Task HandleExceptionResponse(HttpContext context, string message, string? stackTrace, ProblemDetails problemDetails)
     {
         string json = JsonSerializer.Serialize(problemDetails);
         context.Response.ContentType = "application/json";
-        _logger.LogError("\nError: {errorMessage}\nStackTrace: {stackTrace}", message, stackTrace);
+        Log.Error("\nError: {errorMessage}\nStackTrace: {stackTrace}", message, stackTrace);
 
         await context.Response.WriteAsync(json);
     }

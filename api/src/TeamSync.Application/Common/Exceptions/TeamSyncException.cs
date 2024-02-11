@@ -27,4 +27,14 @@ public class TeamSyncException : Exception
         HttpStatusCode = code;
         Message = exceptionMessage;
     }
+
+    /// <summary>
+    /// Initializes a new instance of <seealso cref="TeamSyncException"/>
+    /// </summary>
+    /// <param name="code"></param>
+    /// <param name="exceptionMessage"></param>
+    public TeamSyncException(string exceptionMessage) : base(exceptionMessage)
+    {
+        Message = exceptionMessage;
+    }
 }

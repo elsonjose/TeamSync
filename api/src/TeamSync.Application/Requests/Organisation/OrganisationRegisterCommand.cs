@@ -2,7 +2,6 @@ using MediatR;
 using TeamSync.Application.Common.Dto;
 using TeamSync.Application.Common.Dto.Authetication;
 using TeamSync.Application.Interfaces;
-
 namespace TeamSync.Application.Requests.Organisation;
 
 /// <summary>
@@ -97,7 +96,7 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
             HashSalt = salt,
             IsAdminUser = true,
             OrganisationId = organisation.Id,
-            
+
             // Set it to false. Only after email verification set it as true.
             IsActive = false,
 

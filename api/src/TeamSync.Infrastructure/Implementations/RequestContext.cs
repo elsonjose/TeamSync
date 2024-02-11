@@ -1,3 +1,4 @@
+using TeamSync.Application.Common.Exceptions;
 using TeamSync.Application.Interfaces;
 
 namespace TeamSync.Infrastructure.Implementations;
@@ -11,22 +12,26 @@ public class RequestContext : IRequestContext
     /// <summary>
     /// Specifies the orginisation identifier.
     /// </summary>
-    private Guid OrganisationId { get; set; }
+    private string? OrganisationId { get; set; }
 
     /// <summary>
     /// Specifies the user identifier.
     /// </summary>
-    private Guid? UserId { get; set; }
+    private string? UserId { get; set; }
 
     /// <summary>
     /// Specifies whether the user is organisation.
     /// </summary>
-    private bool IsOrganisation { get; set; }
+    private string? IsOrganisation { get; set; }
 
 
     public Guid GetOrganisationIdFromToken()
     {
-        return OrganisationId;
+        if (string.IsNullOrEmpty(OrganisationId))
+        {
+            throw new TeamSyncException("Organisation id is null.");
+        }
+        return new Guid(OrganisationId);
     }
 
     public int GetTimeZoneOffsetFromHeader()
@@ -36,14 +41,23 @@ public class RequestContext : IRequestContext
 
     public Guid GetUserIdFromToken()
     {
-        if (UserId.HasValue)
+        if (string.IsNullOrEmpty(UserId))
         {
-            return UserId.Value;
+            throw new TeamSyncException("User id is null.");
         }
-        throw new Exception("User id not found");
+        return new Guid(UserId);
     }
 
-    public void SetValues(int timeZoneOffset, Guid? userId, Guid orgId, bool isOrg)
+    public bool IsOrganisationAdmin()
+    {
+        if (string.IsNullOrEmpty(IsOrganisation))
+        {
+            throw new TeamSyncException("User id is null.");
+        }
+        return Convert.ToBoolean(IsOrganisation);
+    }
+
+    public void SetValues(int timeZoneOffset, string? userId, string? orgId, string? isOrg)
     {
         TimeZoneOffset = timeZoneOffset;
         OrganisationId = orgId;
