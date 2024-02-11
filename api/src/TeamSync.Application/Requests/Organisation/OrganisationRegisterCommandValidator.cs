@@ -9,7 +9,15 @@ namespace TeamSync.Application.Requests.Organisation;
 /// </summary>
 public class OrganisationRegisterCommandValidator : AbstractValidator<OrganisationRegisterCommand>
 {
+    /// <summary>
+    /// Specifies the databse context.
+    /// </summary>
     private readonly ITeamSyncDbContext _teamSyncDbContext;
+
+    /// <summary>
+    /// Initializes a new instance of the validator.
+    /// </summary>
+    /// <param name="teamSyncDbContext"></param>
     public OrganisationRegisterCommandValidator(ITeamSyncDbContext teamSyncDbContext)
     {
         _teamSyncDbContext = teamSyncDbContext;
@@ -41,7 +49,7 @@ public class OrganisationRegisterCommandValidator : AbstractValidator<Organisati
     /// <returns>True if email id is not duplicate else false.</returns>
     private bool NotADuplicateEmail(string email)
     {
-        return !_teamSyncDbContext.Organisations.Any(x => x.Email.ToLower().Equals(email.ToLower()));
+        return !_teamSyncDbContext.Users.Any(x => x.Email.ToLower().Equals(email.ToLower()));
     }
 
     /// <summary>
@@ -55,6 +63,8 @@ public class OrganisationRegisterCommandValidator : AbstractValidator<Organisati
             .WithMessage("'Password' cannot be empty.");
         RuleFor(o => o.Name).NotNull().NotEmpty()
             .WithMessage("'Name' cannot be empty.");
+        RuleFor(o => o.IsDomainCheckEnabled).NotNull()
+            .WithMessage("'IsDomainCheckEnabled' cannot be empty.");
     }
 
     /// <summary>

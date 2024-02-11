@@ -8,13 +8,31 @@ namespace TeamSync.Application.Requests.Organisation;
 /// <summary>
 /// Defines the register command for organisation.
 /// </summary>
-public class OrganisationRegisterCommand : OrganisationLoginQuery
+public class OrganisationRegisterCommand : IRequest<ResponseDto<AuthenticationResposeDto>>
 {
+    /// <summary>
+    /// Specifies the input email.
+    /// </summary>
+    /// <example>input@email.com</example>
+    public string Email { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies the input password.
+    /// </summary>
+    /// <example>p@ssword</example>
+    public string Password { get; set; } = null!;
+
     /// <summary>
     /// Specifies the organisation name.
     /// </summary>
     /// <example>Organisation name</example>
     public string Name { get; set; } = null!;
+
+    /// <summary>
+    /// Specifies whether to enforce domain check allowing only the users with the same domain to be added to this organisation.
+    /// </summary>
+    /// <example>Organisation name</example>
+    public bool IsDomainCheckEnabled { get; set; }
 }
 
 /// <summary>
@@ -58,15 +76,38 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
     /// <returns>The authentication response.</returns>
     public async Task<ResponseDto<AuthenticationResposeDto>> Handle(OrganisationRegisterCommand request, CancellationToken cancellationToken)
     {
-        var (hashedPassword, salt) = _hasher.HashPassword(request.Password);
         var organisation = new Domain.Entities.Organisation()
         {
             Name = request.Name,
-            Email = request.Email,
-            Password = hashedPassword,
-            HashSalt = salt
+            EnforceDomainCheck = request.IsDomainCheckEnabled,
+            // Set it to false. Only after email verification set it as true.
+            IsActive = false,
         };
         await _dbContext.Organisations.AddAsync(organisation, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        var (hashedPassword, salt) = _hasher.HashPassword(request.Password);
+
+        var adminUser = new Domain.Entities.User()
+        {
+            FirstName = request.Name,
+            LastName = nameof(Organisation),
+            Email = request.Email,
+            Password = hashedPassword,
+            HashSalt = salt,
+            IsAdminUser = true,
+            OrganisationId = organisation.Id,
+            
+            // Set it to false. Only after email verification set it as true.
+            IsActive = false,
+
+            // User time-log details
+            UserTimeLogInfo = new()
+            {
+                IsClockedIn = false,
+            }
+        };
+        await _dbContext.Users.AddAsync(adminUser, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         var token = _jwtTokenGenerator.GenerateToken(null, organisation.OrganisationId, true);

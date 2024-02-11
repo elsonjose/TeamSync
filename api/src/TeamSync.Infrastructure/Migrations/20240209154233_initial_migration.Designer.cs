@@ -13,8 +13,8 @@ using TeamSync.Infrastructure.Implementation.Database;
 namespace TeamSync.Infrastructure.Migrations
 {
     [DbContext(typeof(TeamSyncDbContext))]
-    [Migration("20240204101131_Initial_Migration")]
-    partial class Initial_Migration
+    [Migration("20240209154233_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,16 +36,9 @@ namespace TeamSync.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)")
-                        .HasColumnName("email");
-
-                    b.Property<byte[]>("HashSalt")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("hash_salt");
+                    b.Property<bool>("EnforceDomainCheck")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enforce_domain_check");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -68,11 +61,6 @@ namespace TeamSync.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("organisation_id")
                         .HasDefaultValueSql("gen_random_uuid()");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password");
 
                     b.HasKey("Id")
                         .HasName("pk_organisations");
@@ -150,11 +138,9 @@ namespace TeamSync.Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("is_active");
 
-                    b.Property<bool>("IsClockedIn")
-                        .ValueGeneratedOnAdd()
+                    b.Property<bool>("IsAdminUser")
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("is_clocked_in");
+                        .HasColumnName("is_admin_user");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -197,6 +183,45 @@ namespace TeamSync.Infrastructure.Migrations
                     b.ToTable("users", (string)null);
                 });
 
+            modelBuilder.Entity("TeamSync.Domain.Entities.UserTimeLogInfo", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<bool>("IsClockedIn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_clocked_in");
+
+                    b.Property<long?>("LastClockedId")
+                        .IsRequired()
+                        .HasColumnType("bigint")
+                        .HasColumnName("last_clocked_id");
+
+                    b.Property<long?>("LastClockedTime")
+                        .IsRequired()
+                        .HasColumnType("bigint")
+                        .HasColumnName("last_clocked_time");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_time_log_info");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_user_time_log_info_user_id");
+
+                    b.ToTable("user_time_log_info", (string)null);
+                });
+
             modelBuilder.Entity("TeamSync.Domain.Entities.TimeLog", b =>
                 {
                     b.HasOne("TeamSync.Domain.Entities.User", "User")
@@ -222,6 +247,17 @@ namespace TeamSync.Infrastructure.Migrations
                     b.Navigation("Organisation");
                 });
 
+            modelBuilder.Entity("TeamSync.Domain.Entities.UserTimeLogInfo", b =>
+                {
+                    b.HasOne("TeamSync.Domain.Entities.User", null)
+                        .WithOne("UserTimeLogInfo")
+                        .HasForeignKey("TeamSync.Domain.Entities.UserTimeLogInfo", "UserId")
+                        .HasPrincipalKey("TeamSync.Domain.Entities.User", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_time_log_info_users_user_id");
+                });
+
             modelBuilder.Entity("TeamSync.Domain.Entities.Organisation", b =>
                 {
                     b.Navigation("Users");
@@ -230,6 +266,9 @@ namespace TeamSync.Infrastructure.Migrations
             modelBuilder.Entity("TeamSync.Domain.Entities.User", b =>
                 {
                     b.Navigation("TimeLogs");
+
+                    b.Navigation("UserTimeLogInfo")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

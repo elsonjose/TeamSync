@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Newtonsoft.Json.Linq;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -7,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TeamSync.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Migration : Migration
+    public partial class initial_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,9 +25,7 @@ namespace TeamSync.Infrastructure.Migrations
                     organisation_id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
-                    hash_salt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    enforce_domain_check = table.Column<bool>(type: "boolean", nullable: false),
                     metadata = table.Column<JObject>(type: "jsonb", nullable: true)
                 },
                 constraints: table =>
@@ -42,14 +41,14 @@ namespace TeamSync.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
                     hash_salt = table.Column<byte[]>(type: "bytea", nullable: false),
                     metadata = table.Column<JObject>(type: "jsonb", nullable: true),
                     organisation_id = table.Column<long>(type: "bigint", nullable: false),
                     is_active = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    is_clocked_in = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                    is_admin_user = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,6 +84,28 @@ namespace TeamSync.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "user_time_log_info",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    is_clocked_in = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    last_clocked_id = table.Column<long>(type: "bigint", nullable: false),
+                    last_clocked_time = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_user_time_log_info", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_user_time_log_info_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_organisations_organisation_id",
                 table: "organisations",
@@ -95,6 +116,12 @@ namespace TeamSync.Infrastructure.Migrations
                 name: "ix_time_logs_user_id",
                 table: "time_logs",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_user_time_log_info_user_id",
+                table: "user_time_log_info",
+                column: "user_id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_organisation_id",
@@ -113,6 +140,9 @@ namespace TeamSync.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "time_logs");
+
+            migrationBuilder.DropTable(
+                name: "user_time_log_info");
 
             migrationBuilder.DropTable(
                 name: "users");
