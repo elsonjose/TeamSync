@@ -71,7 +71,7 @@ public class GlobalExceptionHandler : IMiddleware
     {
         string json = JsonSerializer.Serialize(problemDetails);
         context.Response.ContentType = "application/json";
-        _logger.LogError("Error: {errorMessage}\nStackTrace: {stackTrace}", message, stackTrace);
+        _logger.LogError("\nError: {errorMessage}\nStackTrace: {stackTrace}", message, stackTrace);
 
         await context.Response.WriteAsync(json);
     }

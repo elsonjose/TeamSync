@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
     });
 
     builder.Services.AddScoped<IRequestContext, RequestContext>();
-    builder.Services.AddTransient<IMiddleware, GlobalExceptionHandler>();
+    builder.Services.AddTransient<GlobalExceptionHandler>();
 
     // Dependency injection
     builder.Services
@@ -40,6 +40,7 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+    app.UseGlobalExceptionHandler();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
