@@ -28,12 +28,4 @@ public interface IRequestContext
     /// </summary>
     /// <returns>True if user is organisation admin, else false.</returns>
     bool IsOrganisationAdmin();
-
-    /// <summary>
-    /// Sets the values
-    /// </summary>
-    /// <param name="timeZoneOffset"></param>
-    /// <param name="userId"></param>
-    /// <param name="OrgId"></param>
-    void SetValues(int timeZoneOffset, string? userId, string? orgId, string? isOrg);
 }

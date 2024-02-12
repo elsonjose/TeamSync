@@ -1,6 +1,6 @@
 namespace TeamSync.Api;
 
-public static class ApiConstants
+public static class ApplicationConstants
 {
     public const string TimeZoneOffsetHeader = "Timezone-Offset";
 }

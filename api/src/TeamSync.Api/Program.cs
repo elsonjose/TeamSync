@@ -19,16 +19,12 @@ Log.Logger = new LoggerConfiguration()
 
 Log.Information("Starting TeamSync API Service");
 
-
 var builder = WebApplication.CreateBuilder(args);
 {
 
     builder.Host.UseSerilog();
 
-    builder.Services.AddControllers(options =>
-    {
-        options.Filters.Add(typeof(RequestContextSettingFilter));
-    });
+    builder.Services.AddControllers();
     builder.Services.AddSwaggerGen(options =>
     {
         options.OperationFilter<TimeZoneOffsetFilter>();
