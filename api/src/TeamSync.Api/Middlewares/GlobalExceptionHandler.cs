@@ -43,7 +43,7 @@ public class GlobalExceptionHandler : IMiddleware
             ProblemDetails problemDetails = new()
             {
                 Status = (int)teamSyncException.HttpStatusCode,
-                Title = nameof(teamSyncException.HttpStatusCode),
+                Title = Enum.GetName(typeof(TeamSyncExceptionCodes), teamSyncException.HttpStatusCode),
                 Detail = teamSyncException.Message,
             };
             await HandleExceptionResponse(context, teamSyncException.Message, teamSyncException.StackTrace, problemDetails);

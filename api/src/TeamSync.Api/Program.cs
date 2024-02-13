@@ -32,6 +32,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddScoped<IRequestContext, RequestContext>();
     builder.Services.AddTransient<GlobalExceptionHandler>();
+    builder.Services.AddHttpContextAccessor();
 
     // Dependency injection
     builder.Services

@@ -53,6 +53,7 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
     /// Specifies the jwt token generator instance.
     /// </summary>
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IRequestContext r;
 
     /// <summary>
     /// Initialises a new instance of <seealso cref="OrganisationRegisterCommandHandler"/>
@@ -60,11 +61,12 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
     /// <param name="hasher"></param>
     /// <param name="teamSyncDbContext"></param>
     /// <param name="jwtTokenGenerator"></param>
-    public OrganisationRegisterCommandHandler(IHasher hasher, ITeamSyncDbContext teamSyncDbContext, IJwtTokenGenerator jwtTokenGenerator)
+    public OrganisationRegisterCommandHandler(IHasher hasher, ITeamSyncDbContext teamSyncDbContext, IJwtTokenGenerator jwtTokenGenerator, IRequestContext requestContext)
     {
         _hasher = hasher;
         _dbContext = teamSyncDbContext;
         _jwtTokenGenerator = jwtTokenGenerator;
+        r = requestContext;
     }
 
     /// <summary>
@@ -75,6 +77,9 @@ public class OrganisationRegisterCommandHandler : IRequestHandler<OrganisationRe
     /// <returns>The authentication response.</returns>
     public async Task<ResponseDto<AuthenticationResposeDto>> Handle(OrganisationRegisterCommand request, CancellationToken cancellationToken)
     {
+        var s = r.GetTimeZoneOffsetFromHeader();
+        var d = r.GetOrganisationIdFromToken();
+        var w = r.GetOrganisationIdFromToken();
         var organisation = new Domain.Entities.Organisation()
         {
             Name = request.Name,

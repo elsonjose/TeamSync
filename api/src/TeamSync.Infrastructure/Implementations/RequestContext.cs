@@ -4,6 +4,7 @@ using TeamSync.Api;
 using TeamSync.Application.Common.Exceptions;
 using TeamSync.Application.Interfaces;
 using TeamSync.Infrastructure.Services.Authencation;
+using static TeamSync.Application.Common.TeamSyncEnums;
 
 namespace TeamSync.Infrastructure.Implementations;
 public class RequestContext : IRequestContext
@@ -27,7 +28,7 @@ public class RequestContext : IRequestContext
         var organisationId = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
         if (string.IsNullOrEmpty(organisationId))
         {
-            throw new TeamSyncException("Organisation id is null.");
+            throw new TeamSyncException(TeamSyncExceptionCodes.BadRequest, "Organisation id field is missing in authorization token");
         }
         return new Guid(organisationId);
     }
@@ -37,7 +38,7 @@ public class RequestContext : IRequestContext
         var timeZoneOffset = _httpContextAccessor.HttpContext?.Request.Headers[ApplicationConstants.TimeZoneOffsetHeader.ToLower()];
         if (string.IsNullOrEmpty(timeZoneOffset))
         {
-            throw new TeamSyncException("Timezone offset is empty.");
+            throw new TeamSyncException(TeamSyncExceptionCodes.BadRequest, "Timezone offset is missing in header.");
         }
         return Convert.ToInt32(timeZoneOffset);
     }
@@ -47,7 +48,7 @@ public class RequestContext : IRequestContext
         var userId = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == TeamSyncClaimNames.UserId)?.Value;
         if (string.IsNullOrEmpty(userId))
         {
-            throw new TeamSyncException("User id is null.");
+            throw new TeamSyncException(TeamSyncExceptionCodes.BadRequest, "User id field is missing in authorization token.");
         }
         return new Guid(userId);
     }
@@ -57,7 +58,7 @@ public class RequestContext : IRequestContext
         var isOrganisation = _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == TeamSyncClaimNames.IsOrganisation)?.Value;
         if (string.IsNullOrEmpty(isOrganisation))
         {
-            throw new TeamSyncException("Is organistion is null.");
+            throw new TeamSyncException(TeamSyncExceptionCodes.BadRequest, "Is organisation field is missing in authorization token.");
         }
         return Convert.ToBoolean(isOrganisation);
     }
